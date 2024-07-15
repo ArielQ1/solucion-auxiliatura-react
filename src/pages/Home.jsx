@@ -1,10 +1,7 @@
 import { React, useState } from 'react';
 import { useForm } from 'react-hook-form'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Modal from '../components/Modal';
-
+import '../style/HomePage.css' 
 
 
 const Home = () => {
@@ -17,51 +14,45 @@ const Home = () => {
     })
 
     return (
-        <div style={{display:'flex', flexDirection:'column',alignItems:'center', justifyContent:'center', height:'500px'}}>
-        <h1>Formulario de Registro</h1>
-        <Container className="mt-5" style={{backgroundColor: '#646cff', width:'30vw', borderRadius:'10px', height:'300px', display:'grid', placeContent:'center' }}>
-            <Form className="p-5" onSubmit={onSubmit} style={{display:'flex', flexDirection:'column', width:'100%', alignItems:'center'}}>
-                <Form.Group>
-                    <Form.Label style={{display:'block'}}>Nombre</Form.Label>
-                    <Form.Control type="text" placeholder="Ingrese su nombre" {...register("nombre", {
-                        required: {value:true, message:'Nombre requerido'},
-                        minLength: {value:3, message:'Nombre muy corto'},
-                        maxLength: {value:25, message:'Nombre muy largo'}
-                    })}/>
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Label style={{display:'block'}}>Fecha de Nacimiento</Form.Label>
-                    <Form.Control type="date" {...register("fechaNacimiento", {
-                        required: {value:true, message:'Fecha de nacimiento requerida'},
-                        validate: value => {
-                            const fechaNacimiento = new Date(value)
-                            const fechaActual = new Date()
-                            const edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear()
-                            return edad >= 18 ? true : 'Debes ser mayor de edad'
-                        }
-                    })} style={{marginBottom:'10px'}} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label style={{display:'block'}}>Nota Estudiante</Form.Label>
-                    <Form.Control type='number' {...register("notaEstudiante", {
-                        required: {value:true, message:'Nota requerida'},
-                        min: {value:0, message:'Nota muy baja tiene que ser mayor a 0'},
-                        max: {value:100, message:'Nota muy alta no debe ser mayor a 100'}
-                    })}/>
-                </Form.Group>
-                <Button variant="primary" type="submit" onClick={()=>{
-                    cambiarEstadoModal(true);
-                    console.log(errors)
-                    }} style={{margin:'5px'}}>
-                    Validar
-                </Button>
-                <Modal estado={estadoModal} cambiarEstado={cambiarEstadoModal} titulo={"Estado de la Validacion de Datos"}>
+        <div className='section'>
+            <div className="form-box">
+                <div className="form-value">
+                    <form onSubmit={onSubmit}>
+                        <h2>Formulario de Registro</h2>
+                        <div className="inputbox">
+                            <input type="text" {...register("nombre", {
+                            required: {value:true, message:'Nombre requerido'},
+                            minLength: {value:3, message:'Nombre muy corto'},
+                            maxLength: {value:25, message:'Nombre muy largo'}
+                            })} />
+                            <label >Nombres</label>
+                        </div>
+                        <div className="inputbox">
+                            <input type="date" {...register("fechaNacimiento", {
+                            required: {value:true, message:'Fecha de nacimiento requerida'},
+                            })} />
+                            <label >Fecha Nacimiento</label>
+                        </div>
+                        <div className="inputbox">
+                            <input type="number" {...register("notaEstudiante", {
+                            required: {value:true, message:'Nota requerida'},
+                            min: {value:0, message:'Nota muy baja tiene que ser mayor a 0'},
+                            max: {value:100, message:'Nota muy alta no debe ser mayor a 100'}
+                            })} />
+                            <label >Nota </label>
+                        </div>
+                        <button type="submit" onClick={()=>{
+                            cambiarEstadoModal(true);
+                            console.log(errors)
+                        }}>Validar</button>
+                    </form>
+                </div>
+            </div>
+            <Modal estado={estadoModal} cambiarEstado={cambiarEstadoModal} titulo={"Estado de la Validacion de Datos"}>
                 <div className="contenidoModal">  
-                    <h2>Estudiante  {watch("nombre")}</h2>
+                    <strong>Nombre: </strong><p>{watch("nombre")}</p>
                     <strong>Fecha de Nacimiento: </strong><p>{watch("fechaNacimiento")}</p>
                     <strong>Nota: </strong><p>{watch("notaEstudiante")}</p>
-
                     {errors.nombre && <p style={{color:'red'}}>{errors.nombre.message}</p>}
                     {errors.fechaNacimiento && <p style={{color:'red'}}>{errors.fechaNacimiento.message}</p>}
                     {errors.notaEstudiante && <p style={{color:'red'}}>{errors.notaEstudiante.message}</p>}
@@ -71,11 +62,8 @@ const Home = () => {
                         window.localStorage.setItem('nota', watch("notaEstudiante"));
                         window.localStorage.setItem('fecha', watch("fechaNacimiento"));
                         }} >Enviar</button>}
-                    
                 </div>
-                </Modal>
-            </Form>
-        </Container>        
+            </Modal>
         </div>
     );
 }

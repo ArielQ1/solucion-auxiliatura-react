@@ -14,7 +14,7 @@ const Segunda = () => {
     return (
         <div style={{display:"grid", placeContent:'center'}}>
             <h1>Segunda Pagina</h1>
-            <p>Calvule y Muestre la Edad de la Persona</p>
+            <p>Calcule y Muestre la Edad de la Persona</p>
             <form onSubmit={onSubmit} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                 <button type="submit" onClick={()=>{
                     cambiarEstadoModal(true);

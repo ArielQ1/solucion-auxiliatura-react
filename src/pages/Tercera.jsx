@@ -36,7 +36,7 @@ const Tercera = () => {
                             let notaEstudiante = window.localStorage.getItem('nota');
                             return notaEstudiante >= 51 ? 'Estudiante Aprobado' : 'Estudiante Reprobado'
                         })()
-                        }</h1>
+                        } con {window.localStorage.getItem('nota')}</h1>
 
                         <button type="submit" onClick={()=>{
                             cambiarEstadoModal(false);
