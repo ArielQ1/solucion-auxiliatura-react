@@ -29,6 +29,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
 
+  background: url('./assets/background4.jpg')no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 h1 {
